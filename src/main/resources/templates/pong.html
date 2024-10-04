@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>템플릿</title>
+  <link rel="stylesheet" href="style.css">
+      <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #000;
+        }
+        #score {
+            position: absolute;
+            top: 20px;
+            font-size: 24px;
+        }
+    </style>
+  
+</head>
+<body>
+  <div id="wrap">
+    <header id="topbar">
+      <div id="topbarleft"></div>
+      <nav id="topbarright">
+        <ul>
+          <li><a href="#">abc</a></li>
+          <li><a href="#">def</a></li>
+          <li><a href="#">ghi</a></li>
+          <li><a href="#">jkl</a></li>
+          <li><a href="#">mno</a></li>
+        </ul>
+      </nav>
+      <h1>적절한 프로젝트</h1>
+    </header>
+
+    <main id="content">
+      <div id="contentleft">
+        <h1>주요 내용 작성</h1>
+			<div id="score">Player: 0 | AI: 0</div>
+		    <canvas id="pongCanvas" width="800" height="400"></canvas>
+        
+        
+      </div>
+
+      <aside id="right_sidebar">
+        <h2>위치 선정중</h2>
+        <p>디코딩 하는 법 설명하는 중</p>
+        
+        <h2>Worth a visit</h2>
+        <ul>
+          <li><a href="#" id="current">열거하는 방법</a></li>
+          <li><a href="#">어렵지 않아요</a></li>
+          <li><a href="#">잘 몰라도</a></li>
+          <li><a href="#">건들다 보면</a></li>
+          <li><a href="#">망가지지요</a></li>
+        </ul>
+		        <h2>디버그 리스트</h2>
+		<ul>
+		  <li><a href="index">index</a></li>
+		  <li><a href="findUser">유저 확인</a></li>
+		  <li><a href="myacc">계정보기</a></li>
+		  <li><a href="myaccch">계정정보수정</a></li>
+		  <li><a href="/users/logout">로그아웃</a></li>
+		  
+		  <li><a href="#"></a></li>
+		</ul>
+      </aside>
+    </main>
+
+    <footer id="footerbg">
+      <div id="footer">
+        <div id="footerleft">
+          <h2>아래의 바는</h2>
+          <ul>
+            <li><a href="#">전략 구상중</a></li>
+            <li><a href="#">전술적 우위 선점중</a></li>
+            <li><a href="#">구조 파악중</a></li>
+          </ul>
+        </div>
+        <div id="footermiddle">
+          <h2>나중에 사용처를</h2>
+          <ul>
+            <li><a href="#">오류 발생중</a></li>
+            <li><a href="#">연속된 오류</a></li>
+            <li><a href="#">연쇄적 오류</a></li>
+          </ul>
+        </div>
+        <div id="footerright">
+          <h2>할당해보죠</h2>
+          <ul>
+            <li><a href="#">스톡이미지</a></li>
+            <li><a href="#">자료화면</a></li>
+            <li><a href="#">구조적 안정성</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="credits">
+        <p><a href="#">homepage</a> | <a href="#">contact</a> | <a href="http://validator.w3.org/check?uri=referer">html</a> | <a href="http://jigsaw.w3.org/css-validator">css</a> | &copy; 2007 Anyone | Design by <a href="http://www.mitchinson.net">www.mitchinson.net</a> | This work is licensed under a <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a></p>
+      </div>
+    </footer>
+  </div>
+      <script>
+        const canvas = document.getElementById('pongCanvas');
+        const ctx = canvas.getContext('2d');
+        let ballX = canvas.width / 2;
+        let ballY = canvas.height / 2;
+        let ballSpeedX = 5;
+        let ballSpeedY = 5;
+        let speedIncreaseFactor = 1.05; 
+        let lastSpeedIncreaseTime = Date.now();
+        const paddleWidth = 10;
+        const paddleHeight = 100;
+        const playerX = 0;
+        const aiX = canvas.width - paddleWidth;
+
+        let playerY = (canvas.height - paddleHeight) / 2;
+        let aiY = (canvas.height - paddleHeight) / 2;
+
+        const paddleSpeed = 6;
+        let upPressed = false;
+        let downPressed = false;
+
+        let playerScore = 0;
+        let aiScore = 0;
+
+        function drawPaddle(x, y) {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(x, y, paddleWidth, paddleHeight);
+        }
+
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(ballX, ballY, 10, 0, Math.PI * 2);
+            ctx.fillStyle = '#000';
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function updateScore() {
+            document.getElementById('score').textContent = `Player: ${playerScore} | AI: ${aiScore}`;
+        }
+
+        function detectWallCollision() {
+            if (ballY <= 0 || ballY >= canvas.height) {
+                ballSpeedY = -ballSpeedY;
+            }
+        }
+
+        function detectPaddleCollision() {
+            if (ballX <= playerX + paddleWidth && ballY > playerY && ballY < playerY + paddleHeight) {
+                ballSpeedX = -ballSpeedX;
+            }
+            if (ballX >= aiX && ballY > aiY && ballY < aiY + paddleHeight) {
+                ballSpeedX = -ballSpeedX;
+            }
+        }
+
+        function detectScore() {
+            if (ballX <= 0) {
+                aiScore++;
+                resetBall();
+            } else if (ballX >= canvas.width) {
+                playerScore++;
+                resetBall();
+            }
+            updateScore();
+        }
+
+        function resetBall() {
+            ballX = canvas.width / 2;
+            ballY = canvas.height / 2;
+            ballSpeedX = 5;
+            ballSpeedY = 5; 
+        }
+
+        function moveAiPaddle() {
+            let aiSpeed = Math.abs(ballSpeedX) * 0.85; 
+            if (aiY + paddleHeight / 2 < ballY) {
+                aiY += aiSpeed; 
+            } else {
+                aiY -= aiSpeed;
+            }
+        }
+
+        function movePlayerPaddle() {
+            if (upPressed && playerY > 0) {
+                playerY -= paddleSpeed;
+            } else if (downPressed && playerY < canvas.height - paddleHeight) {
+                playerY += paddleSpeed;
+            }
+        }
+
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowUp') {
+                upPressed = true;
+            } else if (event.key === 'ArrowDown') {
+                downPressed = true;
+            }
+        });
+
+        window.addEventListener('keyup', function(event) {
+            if (event.key === 'ArrowUp') {
+                upPressed = false;
+            } else if (event.key === 'ArrowDown') {
+                downPressed = false;
+            }
+        });
+
+        function increaseBallSpeed() {
+            let currentTime = Date.now();
+            if (currentTime - lastSpeedIncreaseTime > 3000) { 
+                ballSpeedX *= speedIncreaseFactor;
+                ballSpeedY *= speedIncreaseFactor;
+                lastSpeedIncreaseTime = currentTime;
+            }
+        }
+
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            drawBall();
+            drawPaddle(playerX, playerY); 
+            drawPaddle(aiX, aiY); 
+
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+
+            detectWallCollision();
+            detectPaddleCollision();
+            detectScore();
+            moveAiPaddle();
+            movePlayerPaddle();
+            increaseBallSpeed(); 
+            requestAnimationFrame(update);
+        }
+
+        update(); 
+    </script>
+  
+</body>
+</html>
+

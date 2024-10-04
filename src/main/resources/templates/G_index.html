@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>템플릿</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="wrap">
+    <header id="topbar">
+      <div id="topbarleft"></div>
+      <nav id="topbarright">
+        <ul>
+          <li><a href="#">abc</a></li>
+          <li><a href="#">def</a></li>
+          <li><a href="#">ghi</a></li>
+          <li><a href="#">jkl</a></li>
+          <li><a href="#">mno</a></li>
+        </ul>
+      </nav>
+      <h1>적절한 프로젝트</h1>
+    </header>
+
+    <main id="content">
+      <div id="contentleft">
+        <h1>주요 내용 작성</h1>
+			<div th:if="${isLoggedIn}">
+			    <!-- 로그인된 사용자용 콘텐츠 -->
+			    <p>Welcome, <span th:text="${username}"></span>!</p>
+			</div>
+			<div th:unless="${isLoggedIn}">
+			    <!-- 비회원용 콘텐츠 -->
+			    <p>Please <a href="/login">log in</a> to access more features.</p>
+			</div>
+        
+      </div>
+
+      <aside id="right_sidebar">
+        <h2>위치 선정중</h2>
+        <p>디코딩 하는 법 설명하는 중</p>
+        
+        <h2>Worth a visit</h2>
+        <ul>
+          <li><a href="#" id="current">열거하는 방법</a></li>
+          <li><a href="#">어렵지 않아요</a></li>
+          <li><a href="#">잘 몰라도</a></li>
+          <li><a href="#">건들다 보면</a></li>
+          <li><a href="#">망가지지요</a></li>
+        </ul>
+		        <h2>디버그 리스트</h2>
+		<ul>
+		  <li><a href="index">index</a></li>
+		  <li><a href="signup">회원가입</a></li>
+		  <li><a href="findUser">유저 확인</a></li>
+		  <li><a href="login">로그인</a></li>
+		  <li><a href="findacc">계정찾기</a></li>
+		  <li><a href="#"></a></li>
+		</ul>
+      </aside>
+    </main>
+
+    <footer id="footerbg">
+      <div id="footer">
+        <div id="footerleft">
+          <h2>아래의 바는</h2>
+          <ul>
+            <li><a href="#">전략 구상중</a></li>
+            <li><a href="#">전술적 우위 선점중</a></li>
+            <li><a href="#">구조 파악중</a></li>
+          </ul>
+        </div>
+        <div id="footermiddle">
+          <h2>나중에 사용처를</h2>
+          <ul>
+            <li><a href="#">오류 발생중</a></li>
+            <li><a href="#">연속된 오류</a></li>
+            <li><a href="#">연쇄적 오류</a></li>
+          </ul>
+        </div>
+        <div id="footerright">
+          <h2>할당해보죠</h2>
+          <ul>
+            <li><a href="#">스톡이미지</a></li>
+            <li><a href="#">자료화면</a></li>
+            <li><a href="#">구조적 안정성</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="credits">
+        <p><a href="#">homepage</a> | <a href="#">contact</a> | <a href="http://validator.w3.org/check?uri=referer">html</a> | <a href="http://jigsaw.w3.org/css-validator">css</a> | &copy; 2007 Anyone | Design by <a href="http://www.mitchinson.net">www.mitchinson.net</a> | This work is licensed under a <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a></p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

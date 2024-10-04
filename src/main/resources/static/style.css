@@ -1,0 +1,165 @@
+body {
+  margin: 0;
+  padding: 0;
+  font: 73% Helvetica, "Lucida Sans", Arial, sans-serif;
+  line-height: 1.7em;
+  background: #eee url(images/bg.jpg) repeat-x;
+  color: #444;
+}
+
+/* WRAP */
+#wrap {
+  max-width: 1200px; /* 전체 너비에 대한 제한 */
+  margin: 0 auto;
+  padding: 0;
+  background: #fff;
+  color: #444;
+}
+
+/* TOPBAR */
+#topbar {
+  display: flex; /* Flexbox를 사용하여 요소 정렬 */
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #fff url(images/header.jpg) no-repeat;
+}
+
+#topbar h1 {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 3px;
+  font-size: 2.5rem; /* font-size를 rem 단위로 변경 */
+  color: #F48129;
+}
+
+#topbar h2 {
+  margin: 0;
+  padding: 5px;
+  font-size: 1rem;
+  letter-spacing: 3px;
+  color: #fff;
+}
+
+#topbarright ul {
+  display: flex; /* Flexbox를 사용하여 메뉴 정렬 */
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#topbarright a {
+  color: #000;
+  font-size: 120%;
+  font-weight: bold;
+  padding: 6px 10px;
+  text-decoration: none;
+}
+
+#topbarright a:hover {
+  color: #666;
+  text-decoration: underline;
+}
+
+/* CONTENT */
+#content {
+  display: flex; /* Flexbox를 사용하여 컨텐츠와 사이드바 정렬 */
+  padding: 20px;
+}
+
+#contentleft {
+  flex: 3; /* 비율로 너비 설정 */
+  padding: 0 20px 20px 0;
+}
+
+#right_sidebar {
+  flex: 1; /* 비율로 너비 설정 */
+  margin-left: 20px;
+}
+
+/* FOOTER */
+#footerbg {
+  background: #000;
+  border-top: 5px solid #F2720E;
+}
+
+#footer {
+  display: flex; /* Flexbox를 사용하여 footer 내용 정렬 */
+  justify-content: space-between;
+  padding: 20px;
+  background: #000;
+  color: #fff;
+}
+
+#footer h2 {
+  padding: 0;
+  margin: 15px 0 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font: bold 120% Arial, Helvetica, sans-serif;
+  border-bottom: 1px solid #333;
+  color: #F0DED2;
+}
+
+#footer a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+#footer a:hover {
+  color: #fff;
+}
+
+#credits {
+  padding: 10px;
+  text-align: center;
+  background: #000;
+  color: #eee;
+}
+
+/* LINKS */
+a, a:visited {
+  color: #FF7A29;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #666;
+  text-decoration: underline;
+}
+
+.small {
+  font-size: 90%;
+  font-weight: bold;
+  color: #752D00;
+}
+
+/* TYPOGRAPHY */
+blockquote {
+  font-weight: bold;
+  font-style: italic;
+  border-left: 4px solid #ccc;
+  margin: 20px 0;
+  padding-left: 10px;
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 768px) {
+  #content {
+    flex-direction: column; /* 모바일에서는 수직 정렬 */
+  }
+  
+  #right_sidebar {
+    margin-left: 0; /* 사이드바 위치 조정 */
+  }
+
+  #topbar {
+    flex-direction: column; /* 모바일에서 수직 정렬 */
+    text-align: center;
+  }
+
+  #topbarright ul {
+    flex-direction: column; /* 메뉴 수직 정렬 */
+  }
+}
